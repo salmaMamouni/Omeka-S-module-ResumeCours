@@ -2,6 +2,8 @@
 
 Module Omeka-S pour la transcription et l'analyse automatique de cours audio. Intègre la transcription via Whisper API et l'analyse avec Ollama (IA locale).
 
+## Installation
+
 ## 📋 Prérequis
 
 Avant d'installer le module, assurez-vous d'avoir :

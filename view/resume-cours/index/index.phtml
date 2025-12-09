@@ -1,0 +1,234 @@
+<?php
+$this->headTitle($title);
+?>
+
+<div class="study-whis-container">
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2><?php echo $this->translate('Upload Audio Course'); ?></h2>
+        </div>
+        <div class="panel-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="audio_file"><?php echo $this->translate('Audio File'); ?></label>
+                    <input type="file" id="audio_file" name="audio_file" accept="audio/*" class="form-control" required>
+                    <p class="help-block">
+                        <?php echo $this->translate('Supported formats: MP3, WAV, OGG, M4A, FLAC'); ?>
+                        <?php echo $this->translate('Max size:'); ?> <?php echo $maxUpload; ?> MB
+                    </p>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <?php echo $this->translate('Upload and Process'); ?>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <?php if (isset($error) && $error): ?>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h2><?php echo $this->translate('Error'); ?></h2>
+        </div>
+        <div class="panel-body">
+            <p class="error-message"><?php echo $this->escapeHtml($error); ?></p>
+        </div>
+    </div>
+    <?php endif; ?>
+    
+    <?php if (isset($result) && $result): ?>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h2><?php echo $this->translate('Results'); ?></h2>
+        </div>
+        <div class="panel-body">
+            <div class="result-section">
+                <h3><?php echo $this->translate('File Information'); ?></h3>
+                <p><strong><?php echo $this->translate('Filename:'); ?></strong> <?php echo $this->escapeHtml($result['filename']); ?></p>
+                <p><strong><?php echo $this->translate('Model Used:'); ?></strong> <?php echo $this->escapeHtml($result['model_used']); ?></p>
+                <p><strong><?php echo $this->translate('Language:'); ?></strong> <?php echo $this->escapeHtml($result['language']); ?></p>
+            </div>
+            
+            <div class="result-section">
+                <h3><?php echo $this->translate('Transcription'); ?></h3>
+                <div class="transcription-box">
+                    <?php echo nl2br($this->escapeHtml($result['transcription'])); ?>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h3><?php echo $this->translate('Summary'); ?></h3>
+                <div class="summary-box">
+                    <?php echo nl2br($this->escapeHtml($result['summary'])); ?>
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <h3><?php echo $this->translate('Revision Questions'); ?></h3>
+                <div class="questions-box">
+                    <?php echo nl2br($this->escapeHtml($result['questions'])); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2><?php echo $this->translate('Features'); ?></h2>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li><?php echo $this->translate('Transcription via Whisper API'); ?></li>
+                <li><?php echo $this->translate('Automatic summarization'); ?></li>
+                <li><?php echo $this->translate('Question generation for revision'); ?></li>
+                <li><?php echo $this->translate('Text search in transcriptions'); ?></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+.study-whis-container {
+    padding: 20px;
+}
+
+.study-whis-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.panel {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.panel-heading {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+}
+
+.panel-body {
+    padding: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.help-block {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+select.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.panel-success {
+    border-color: #d6e9c6;
+}
+
+.panel-success > .panel-heading {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+.panel-danger {
+    border-color: #ebccd1;
+}
+
+.panel-danger > .panel-heading {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+.result-section {
+    margin-bottom: 20px;
+}
+
+.result-section h3 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.2em;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.transcription-box,
+.summary-box,
+.questions-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.transcription-box {
+    background-color: #f5f5f5;
+}
+
+.summary-box {
+    background-color: #e8f4f8;
+}
+
+.questions-box {
+    background-color: #fff3cd;
+}
+
+.error-message {
+    color: #a94442;
+    font-weight: bold;
+}
+</style>

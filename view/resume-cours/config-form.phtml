@@ -1,0 +1,94 @@
+<?php
+/**
+ * ResumeCours - Configuration Form
+ * Note: Les clés API sont maintenant intégrées directement dans le backend
+ */
+?>
+
+<fieldset>
+    <legend><?php echo $this->translate('ResumeCours - Configuration'); ?></legend>
+    
+    <div class="field">
+        <div class="field-meta">
+            <label for="resumecours_max_upload"><?php echo $this->translate('Max Upload Size (MB)'); ?></label>
+        </div>
+        <div class="field-inputs">
+            <input type="number" name="resumecours_max_upload" id="resumecours_max_upload" value="<?php echo $this->escapeHtml($maxUpload); ?>" min="1" max="1000" />
+            <p class="explanation"><?php echo $this->translate('Maximum upload file size in megabytes'); ?></p>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-meta">
+            <label for="resumecours_ollama_enabled"><?php echo $this->translate('Enable Ollama Integration'); ?></label>
+        </div>
+        <div class="field-inputs">
+            <input type="checkbox" name="resumecours_ollama_enabled" id="resumecours_ollama_enabled" value="1" <?php echo ($ollamaEnabled ? 'checked' : ''); ?> />
+            <p class="explanation"><?php echo $this->translate('Use local Ollama for AI features'); ?></p>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-meta">
+            <label for="resumecours_ollama_endpoint"><?php echo $this->translate('Ollama Endpoint'); ?></label>
+        </div>
+        <div class="field-inputs">
+            <input type="text" name="resumecours_ollama_endpoint" id="resumecours_ollama_endpoint" value="<?php echo $this->escapeHtml($ollamaEndpoint); ?>" />
+            <p class="explanation"><?php echo $this->translate('Ollama API endpoint URL'); ?></p>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-meta">
+            <label for="resumecours_ollama_model"><?php echo $this->translate('Ollama Model'); ?></label>
+        </div>
+        <div class="field-inputs">
+            <select name="resumecours_ollama_model" id="resumecours_ollama_model">
+                <option value="llama2" <?php echo ($ollamaModel === 'llama2' ? 'selected' : ''); ?>>Llama 2</option>
+                <option value="llama3" <?php echo ($ollamaModel === 'llama3' ? 'selected' : ''); ?>>Llama 3</option>
+                <option value="gpt-oss:120b-cloud" <?php echo ($ollamaModel === 'gpt-oss:120b-cloud' ? 'selected' : ''); ?>>GPT-OSS 120B Cloud</option>
+                <option value="mistral" <?php echo ($ollamaModel === 'mistral' ? 'selected' : ''); ?>>Mistral</option>
+                <option value="mixtral" <?php echo ($ollamaModel === 'mixtral' ? 'selected' : ''); ?>>Mixtral</option>
+                <option value="codellama" <?php echo ($ollamaModel === 'codellama' ? 'selected' : ''); ?>>Code Llama</option>
+                <option value="phi" <?php echo ($ollamaModel === 'phi' ? 'selected' : ''); ?>>Phi</option>
+                <option value="neural-chat" <?php echo ($ollamaModel === 'neural-chat' ? 'selected' : ''); ?>>Neural Chat</option>
+                <option value="gemma" <?php echo ($ollamaModel === 'gemma' ? 'selected' : ''); ?>>Gemma</option>
+                <option value="qwen" <?php echo ($ollamaModel === 'qwen' ? 'selected' : ''); ?>>Qwen</option>
+                <option value="deepseek-coder" <?php echo ($ollamaModel === 'deepseek-coder' ? 'selected' : ''); ?>>DeepSeek Coder</option>
+            </select>
+            <p class="explanation"><?php echo $this->translate('Select the Ollama model to use for analysis'); ?></p>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-meta">
+            <label for="resumecours_response_language"><?php echo $this->translate('Response Language'); ?></label>
+        </div>
+        <div class="field-inputs">
+            <select name="resumecours_response_language" id="resumecours_response_language">
+                <option value="fr" <?php echo ($responseLanguage === 'fr' ? 'selected' : ''); ?>>Français</option>
+                <option value="en" <?php echo ($responseLanguage === 'en' ? 'selected' : ''); ?>>English</option>
+                <option value="es" <?php echo ($responseLanguage === 'es' ? 'selected' : ''); ?>>Español</option>
+                <option value="de" <?php echo ($responseLanguage === 'de' ? 'selected' : ''); ?>>Deutsch</option>
+                <option value="it" <?php echo ($responseLanguage === 'it' ? 'selected' : ''); ?>>Italiano</option>
+                <option value="ar" <?php echo ($responseLanguage === 'ar' ? 'selected' : ''); ?>>العربية</option>
+            </select>
+            <p class="explanation"><?php echo $this->translate('Select the language for the analysis response'); ?></p>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-meta">
+            <label for="resumecours_response_detail"><?php echo $this->translate('Response Detail Level'); ?></label>
+        </div>
+        <div class="field-inputs">
+            <select name="resumecours_response_detail" id="resumecours_response_detail">
+                <option value="concise" <?php echo ($responseDetail === 'concise' ? 'selected' : ''); ?>><?php echo $this->translate('Concise - Brief summary'); ?></option>
+                <option value="normal" <?php echo ($responseDetail === 'normal' ? 'selected' : ''); ?>><?php echo $this->translate('Normal - Balanced detail'); ?></option>
+                <option value="detailed" <?php echo ($responseDetail === 'detailed' ? 'selected' : ''); ?>><?php echo $this->translate('Detailed - Comprehensive analysis'); ?></option>
+                <option value="extensive" <?php echo ($responseDetail === 'extensive' ? 'selected' : ''); ?>><?php echo $this->translate('Extensive - In-depth with examples'); ?></option>
+            </select>
+            <p class="explanation"><?php echo $this->translate('Choose how detailed you want the summary and analysis to be'); ?></p>
+        </div>
+    </div>
+</fieldset>
